@@ -6,12 +6,17 @@
   <title>AI Litigation Workflow</title>
 
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Inter, Arial, sans-serif;
       display: flex;
       background: #f7f8fc;
       color: #111827;
+      min-height: 100vh;
     }
 
     .sidebar {
@@ -75,8 +80,10 @@
 
     .intake-grid {
       display: grid;
-      grid-template-columns: 1.7fr 1fr;
+      grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
       gap: 22px;
+      align-items: start;
+      min-width: 0;
     }
 
     .panel {
@@ -85,6 +92,7 @@
       padding: 24px;
       box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
       border: 1px solid rgba(15, 23, 42, 0.05);
+      min-width: 0;
     }
 
     .panel-row {
@@ -213,6 +221,7 @@
       border: 1px solid #e5e7eb;
       cursor: pointer;
       transition: background 0.16s, border-color 0.16s;
+      min-width: 0;
     }
 
     .roadmap-step.active {
@@ -240,10 +249,19 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      min-height: 0;
+    }
+
+    .assistant-panel > .panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     .assistant-box {
-      min-height: 280px;
+      min-height: 220px;
+      max-height: 380px;
+      flex: 1;
       border-radius: 20px;
       background: #f8fafc;
       border: 1px solid #e5e7eb;
@@ -252,6 +270,13 @@
       flex-direction: column;
       gap: 12px;
       overflow-y: auto;
+    }
+
+    .assistant-form {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+      flex-shrink: 0;
     }
 
     .assistant-message {

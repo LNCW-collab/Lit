@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Litigation Workflow</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      background: #f7f8fc;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #111827;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .nav-item {
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: #4f46e5;
+    }
+
+    .main {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .header {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .mockup {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .next-btn {
+      margin-top: 20px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>Litigation AI</h2>
+
+  <div class="nav-item active" onclick="showScreen('intake', this)">Intake</div>
+  <div class="nav-item" onclick="showScreen('drafting', this)">Drafting</div>
+  <div class="nav-item" onclick="showScreen('discovery', this)">Discovery</div>
+  <div class="nav-item" onclick="showScreen('filing', this)">Court & Filing</div>
+  <div class="nav-item" onclick="showScreen('analytics', this)">Analytics</div>
+</div>
+
+<div class="main">
+
+  <!-- Intake -->
+  <div id="intake" class="screen active">
+    <div class="header">Matter Intake & Strategy</div>
+    <img class="mockup" src="images/intake.png" />
+    <button class="next-btn" onclick="goNext()">Next →</button>
+  </div>
+
+  <!-- Drafting -->
+  <div id="drafting" class="screen">
+    <div class="header">Drafting & Motion Practice</div>
+    <img class="mockup" src="images/drafting.png" />
+    <button class="next-btn" onclick="goNext()">Next →</button>
+  </div>
+
+  <!-- Discovery -->
+  <div id="discovery" class="screen">
+    <div class="header">Discovery & Task Management</div>
+    <img class="mockup" src="images/discovery.png" />
+    <button class="next-btn" onclick="goNext()">Next →</button>
+  </div>
+
+  <!-- Filing -->
+  <div id="filing" class="screen">
+    <div class="header">Court & Filing</div>
+    <img class="mockup" src="images/filing.png" />
+    <button class="next-btn" onclick="goNext()">Next →</button>
+  </div>
+
+  <!-- Analytics -->
+  <div id="analytics" class="screen">
+    <div class="header">Post-Outcome Intelligence</div>
+    <img class="mockup" src="images/analytics.png" />
+    <div class="footer">End of demo</div>
+  </div>
+
+</div>
+
+<script>
+const order = ["intake", "drafting", "discovery", "filing", "analytics"];
+
+function showScreen(id, element) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (element) element.classList.add('active');
+}
+
+function goNext() {
+  const current = document.querySelector('.screen.active').id;
+  const index = order.indexOf(current);
+  const next = order[index + 1];
+
+  if (next) {
+    const navItems = document.querySelectorAll('.nav-item');
+    showScreen(next, navItems[index + 1]);
+  }
+}
+</script>
+
+</body>
+</html>

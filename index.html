@@ -8,9 +8,10 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Inter, Arial, sans-serif;
       display: flex;
       background: #f7f8fc;
+      color: #111827;
     }
 
     .sidebar {
@@ -18,25 +19,34 @@
       background: #111827;
       color: white;
       height: 100vh;
-      padding: 20px;
+      padding: 24px 18px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     .sidebar h2 {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       font-size: 18px;
+      letter-spacing: 0.02em;
     }
 
     .nav-item {
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: background 0.2s, transform 0.2s;
+      font-size: 14px;
+      color: #d1d5db;
     }
 
-    .nav-item:hover,
-    .nav-item.active {
+    .nav-item:hover {
+      transform: translateX(2px);
+    }
+
+    .nav-item.active,
+    .nav-item:hover.active {
       background: #4f46e5;
+      color: white;
     }
 
     .main {
@@ -50,7 +60,7 @@
     .screen {
       display: none;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1180px;
     }
 
     .screen.active {
@@ -58,31 +68,251 @@
     }
 
     .header {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
-    .mockup {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    .intake-grid {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 22px;
     }
 
-    .footer {
-      margin-top: 20px;
+    .panel {
+      background: white;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(15, 23, 42, 0.05);
+    }
+
+    .panel-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border-radius: 18px;
+      padding: 18px;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-1px);
+      border-color: #c7d2fe;
+      box-shadow: 0 16px 32px rgba(79, 70, 229, 0.08);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
       font-size: 14px;
-      color: #666;
+      font-weight: 700;
+      color: #111827;
+      margin: 0;
     }
 
-    .next-btn {
-      margin-top: 20px;
+    .card-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin: 0;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eef2ff;
+      color: #4338ca;
+      border-radius: 9999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-action {
+      font-size: 13px;
+      color: #4338ca;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-weight: 700;
+    }
+
+    .small-text {
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .dates-list,
+    .task-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .dates-list li,
+    .task-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .dates-list li span:first-child,
+    .task-list li label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .dates-list li span:last-child,
+    .task-list li small {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .roadmap {
+      display: grid;
+      gap: 14px;
+    }
+
+    .roadmap-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      cursor: pointer;
+      transition: background 0.16s, border-color 0.16s;
+    }
+
+    .roadmap-step.active {
+      border-color: #4f46e5;
+      background: rgba(79, 70, 229, 0.08);
+    }
+
+    .roadmap-step:hover {
+      background: #eef2ff;
+    }
+
+    .roadmap-number {
+      min-width: 28px;
+      min-height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9999px;
+      background: #4338ca;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .assistant-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .assistant-box {
+      min-height: 280px;
+      border-radius: 20px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+    }
+
+    .assistant-message {
+      max-width: 100%;
+      padding: 14px 16px;
+      border-radius: 18px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .assistant-message.assistant {
+      background: #eef2ff;
+      color: #1d4ed8;
+      align-self: flex-start;
+    }
+
+    .assistant-message.user {
+      background: #e0e7ff;
+      color: #1e293b;
+      align-self: flex-end;
+    }
+
+    .assistant-form {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .assistant-input {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
+      padding: 14px 16px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .assistant-submit {
+      width: 100%;
       background: #4f46e5;
       color: white;
       border: none;
-      padding: 12px 18px;
-      border-radius: 6px;
+      border-radius: 14px;
+      padding: 14px;
+      font-weight: 700;
       cursor: pointer;
+    }
+
+    .inline-button {
+      background: #eef2ff;
+      border: none;
+      color: #4338ca;
+      border-radius: 9999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -104,8 +334,101 @@
   <!-- Intake -->
   <div id="intake" class="screen active">
     <div class="header">Matter Intake & Strategy</div>
-    <img class="mockup" src="images/intake.png" />
-    <button class="next-btn" onclick="goNext()">Next →</button>
+    <div class="intake-grid">
+      <div>
+        <div class="panel panel-row">
+          <div class="card" onclick="toggleDetail('summaryDetail')">
+            <div class="card-header">
+              <p class="card-title">Case Summary</p>
+              <span class="label">From Complaint</span>
+            </div>
+            <p class="card-value">Smith v. Acme</p>
+            <p class="small-text" style="margin-top: 10px;">Commercial contract dispute, $250,000 demand, filed 04/15/2024.</p>
+          </div>
+
+          <div class="card" onclick="toggleDetail('assessmentDetail')">
+            <div class="card-header">
+              <p class="card-title">AI Case Assessment</p>
+              <span class="label">Moderate risk</span>
+            </div>
+            <p class="card-value">Risk Level</p>
+            <p class="small-text" style="margin-top: 10px;">Strategy: analyze statute of limitations and limitations defense.</p>
+          </div>
+
+          <div class="card" onclick="toggleDetail('datesDetail')">
+            <div class="card-header">
+              <p class="card-title">Important Dates</p>
+              <span class="label">Auto-tracked</span>
+            </div>
+            <p class="card-value">4 deadlines</p>
+            <p class="small-text" style="margin-top: 10px;">Answer due in 18 days, discovery cutoff in 183 days.</p>
+          </div>
+        </div>
+
+        <div id="summaryDetail" class="panel hidden">
+          <div class="section-title">Case Facts</div>
+          <p class="small-text">Plaintiff alleges breach of contract and unjust enrichment from failed software implementation. Recommended next step: review contract language for limitation terms.</p>
+        </div>
+
+        <div id="assessmentDetail" class="panel hidden">
+          <div class="section-title">AI Recommendation</div>
+          <p class="small-text">Consider a motion to dismiss based on statute of limitations and lack of damages. Prioritize jurisdiction challenges early.</p>
+        </div>
+
+        <div id="datesDetail" class="panel hidden">
+          <div class="section-title">Tracked deadlines</div>
+          <ul class="dates-list">
+            <li><span>Answer Due</span><span>05/20/2024</span></li>
+            <li><span>Initial Status Conf.</span><span>06/10/2024</span></li>
+            <li><span>Discovery Cutoff</span><span>11/01/2024</span></li>
+            <li><span>Dispositive Motions</span><span>12/15/2024</span></li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <div class="section-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span class="section-title">Litigation Roadmap</span>
+            <button class="section-action" onclick="toggleRoadmap()" type="button">Toggle steps</button>
+          </div>
+          <div id="roadmapSteps" class="roadmap">
+            <div class="roadmap-step active" onclick="activateStep(this)"><span class="roadmap-number">1</span><div><strong>Case Assessment</strong><div class="small-text">Analyze complaint and strategy</div></div></div>
+            <div class="roadmap-step" onclick="activateStep(this)"><span class="roadmap-number">2</span><div><strong>Pleadings</strong><div class="small-text">Draft and respond to pleadings</div></div></div>
+            <div class="roadmap-step" onclick="activateStep(this)"><span class="roadmap-number">3</span><div><strong>Discovery</strong><div class="small-text">Gather evidence and review docs</div></div></div>
+            <div class="roadmap-step" onclick="activateStep(this)"><span class="roadmap-number">4</span><div><strong>Motions</strong><div class="small-text">File motions and seek rulings</div></div></div>
+            <div class="roadmap-step" onclick="activateStep(this)"><span class="roadmap-number">5</span><div><strong>Trial</strong><div class="small-text">Prepare for trial</div></div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="section-title">Task List</div>
+          <ul class="task-list">
+            <li><label><input type="checkbox" onchange="updateTasks()" /> Review and finalize motion to dismiss</label><small>Due May 20</small></li>
+            <li><label><input type="checkbox" onchange="updateTasks()" /> Respond to RFP Set #1</label><small>Due May 22</small></li>
+            <li><label><input type="checkbox" onchange="updateTasks()" /> Draft plaintiff fact summary</label><small>Due May 28</small></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="assistant-panel">
+        <div class="panel">
+          <div class="section-title">AI Assistant</div>
+          <div class="assistant-box" id="assistantMessages">
+            <div class="assistant-message assistant">Hi Jane, I’m your AI litigation assistant. I can help you analyze, research, draft, and manage this matter.</div>
+          </div>
+          <form class="assistant-form" onsubmit="handleAssistantSubmit(event)">
+            <input id="assistantInput" class="assistant-input" placeholder="Ask anything about this matter..." />
+            <button class="assistant-submit" type="submit">Send</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="section-title">Next Best Actions</div>
+          <button class="inline-button" onclick="showHint('statute')">Analyze statute of limitations</button>
+          <button class="inline-button" onclick="showHint('caseLaw')">Find relevant case law</button>
+          <button class="inline-button" onclick="showHint('draftAnswer')">Draft answer with defenses</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Drafting -->
@@ -158,6 +481,67 @@ function goNext() {
     const navItems = document.querySelectorAll('.nav-item');
     showScreen(next, navItems[index + 1]);
   }
+}
+
+function toggleDetail(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  section.classList.toggle('hidden');
+}
+
+function activateStep(element) {
+  document.querySelectorAll('.roadmap-step').forEach(step => step.classList.remove('active'));
+  element.classList.add('active');
+}
+
+function toggleRoadmap() {
+  const roadmap = document.getElementById('roadmapSteps');
+  roadmap.classList.toggle('hidden');
+}
+
+function updateTasks() {
+  document.querySelectorAll('.task-list input[type="checkbox"]').forEach(input => {
+    if (input.checked) {
+      input.parentElement.style.opacity = '0.6';
+      input.parentElement.style.textDecoration = 'line-through';
+    } else {
+      input.parentElement.style.opacity = '1';
+      input.parentElement.style.textDecoration = 'none';
+    }
+  });
+}
+
+function appendAssistantMessage(text, type = 'assistant') {
+  const container = document.getElementById('assistantMessages');
+  const message = document.createElement('div');
+  message.className = `assistant-message ${type}`;
+  message.textContent = text;
+  container.appendChild(message);
+  container.scrollTop = container.scrollHeight;
+}
+
+function handleAssistantSubmit(event) {
+  event.preventDefault();
+  const input = document.getElementById('assistantInput');
+  const text = input.value.trim();
+  if (!text) return;
+  appendAssistantMessage(text, 'user');
+  input.value = '';
+  setTimeout(() => {
+    appendAssistantMessage('I found relevant contract provisions and limitations issues. Would you like to draft a motion or review key facts?', 'assistant');
+  }, 600);
+}
+
+function showHint(type) {
+  let hint = '';
+  if (type === 'statute') {
+    hint = 'Analyze statute of limitations for this matter. Check any tolling arguments and key date dependencies.';
+  } else if (type === 'caseLaw') {
+    hint = 'Search similar Illinois contract disputes and prioritize binding precedents like Ashcroft v. Iqbal and Twombly.';
+  } else if (type === 'draftAnswer') {
+    hint = 'Draft an answer with defenses to failure to state a claim and lack of damages.';
+  }
+  appendAssistantMessage(hint, 'assistant');
 }
 </script>
 
